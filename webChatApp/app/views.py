@@ -64,7 +64,7 @@ def room(request, room_name, room_id):
             print(download_url)
             DBmodule.DBmodule.insertMessage(room_id, request.user.id, reg_date, reg_time, file_name, 1, download_url)
 
-            room_group_name = 'chat_%s_%s' % (room_name , room_id)
+            room_group_name = 'chat_%s' % (room_id)
             channel_layer = get_channel_layer()
 
             async_to_sync(channel_layer.group_send)(
