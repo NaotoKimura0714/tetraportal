@@ -1,0 +1,342 @@
+.size-64 {
+    font-size: 64px;
+}
+
+.step {
+    display: inline-block;
+    line-height: 1;
+    position: relative;
+    width: 10%;
+}
+
+.step i {
+    -webkit-transition: opacity .3s;
+    -moz-transition: opacity .3s;
+    -ms-transition: opacity .3s;
+    -o-transition: opacity .3s;
+    transition: opacity .3s;
+}
+
+.step:hover i {
+    opacity: .3;
+}
+
+a:hover, a:focus {
+    color: #000;
+}
+
+#chat-frame {
+    height: 820px;
+    width: 70%;
+    padding: 1em 2em;
+    background-color: #D8F3F0;
+    overflow: scroll;
+    padding-left: 0px;
+    padding-right: 0px;
+    float: left;
+}
+.chat-talk {
+    overflow: hidden;
+    margin: 0 0 1em 0;
+    padding: 0;
+    display: flex;
+}
+.chat-talk span {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+.chat-talk .talk-icon {
+    float: left;
+    width: auto;
+}
+.chat-talk .talk-content {
+    position: relative;
+    box-sizing: border-box;
+    min-width: 200px;
+    max-width: 600px;
+    min-height: 50px;
+    border-radius: 10px;
+    background-color: #fff;
+    margin: 0 0 0 10px;
+    padding: 1em;
+    display: table;
+}
+.chat-talk .talk-icon img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: bottom;
+  border: 2px solid #fff;
+  border-radius: 50%;
+}
+.chat-talk .talk-content:before {
+  position: absolute;
+  top: 15px;
+  left: -20px;
+  display: block;
+  width: 0;
+  height: 0;
+  content: '';
+  border: 10px solid transparent;
+  border-right-color: #FFFFFF;
+}
+.chat-talk.mytalk .talk-icon {
+  float: right;
+}
+.chat-talk.mytalk .talk-content {
+    margin: 0 10px 0 0;
+    color: #000;
+    background: #78FF6C;
+}
+.chat-talk.mytalk .talk-content:before {
+  right: -20px;
+  left: auto;
+  border-color: transparent;
+  border-left-color: #78FF6C;
+}
+
+.chat-talk .chat_time {
+    margin: auto auto 0 10px;
+}
+
+.chat-talk.mytalk .chat_time_my {
+    margin: auto 10px 0 auto;
+}
+
+
+
+#user_frame {
+    width: 30%;
+    margin: auto;
+    display: inline-block;
+    padding: 0;
+    position: relative;
+}
+
+.list_user_name {
+    color: #2d8fdd;
+    border-left: solid 6px #2d8fdd;
+    background: #f1f8ff;
+    margin-bottom: 3px;
+    line-height: 1.5;
+    padding: 0.5em;
+}
+
+#chat-message-input {
+    resize: none;
+    max-height: 300px;
+    line-height: 20px;
+    width: 80%;
+}
+
+.hidden_link {
+    color: black;
+}
+
+.trash {
+    color: white;
+}
+.trash:hover {
+    color: pink;
+    text-decoration-color: transparent;
+}
+
+.todo_form {
+    width: 600px;
+    margin: auto;
+}
+
+.label_area {
+    width: 100px;
+    display: inline-block;
+    text-align: end;
+}
+
+.send_button {
+    width: -webkit-fill-available;
+}
+
+#modal-content {
+    width: 50%;
+    margin: 1.5em auto 0;
+    padding: 10px 20px;
+    border: 2px solid #aaa;
+    background: #fff;
+    z-index: 999;
+    display: none;
+}
+
+.modal-p {
+    margin-top: 1em;
+}
+
+.modal-p:first-child {
+    margin-top: 0;
+}
+
+.button-link {
+    color: #00f;
+    text-decoration: underline;
+}
+
+.button-link:hover {
+    cursor: pointer;
+    color: #f00;
+}
+
+.todo_table {
+    position: relative;
+    flex: 1 1 auto;
+}
+
+.table_area {
+    display: flex;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+}
+
+.todo_area {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100%;
+    min-height: 0px;
+    flex: 0 0 auto;
+}
+
+.todo_head {
+    width: 100%;
+    height: 56px;
+    box-sizing: border-box;
+    background-color: rgb(244, 245, 247);
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(193, 199, 208) rgb(193, 199, 208) rgb(223, 225, 230);
+    border-image: initial;
+    border-bottom: 1px solid rgb(223, 225, 230);
+    flex: 0 0 auto;
+    padding: 0px 16px 0px 24px;
+    border-radius: 3px 0px 0px;
+}
+
+.todo_list {
+    position: relative;
+    flex-direction: column;
+    display: flex;
+    margin-left: -10px;
+    flex: 1 1 auto;
+    overflow: hidden;
+}
+
+.month {
+    display: flex;
+    height: 54px;
+}
+
+.mm {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    border-right: 1px solid rgb(223, 225, 230);
+}
+
+.wbs {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    min-height: 0px;
+    overflow: hidden;
+}
+
+.wbs_head {
+    width: 100%;
+    height: 56px;
+    box-sizing: border-box;
+    background-color: rgb(244, 245, 247);
+    border-width: 1px 1px;
+    border-style: solid none solid solid;
+    border-color: rgb(193, 199, 208) rgb(193, 199, 208);
+    border-image: initial;
+    border-bottom: 1px solid rgb(223, 225, 230);
+    border-right: none;
+    overflow: hidden;
+}
+
+.todo_row {
+    position: relative;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    height: 44px;
+    background-color: rgb(244, 245, 247);
+    cursor: pointer;
+    transition: background-color 100ms linear 0s;
+}
+
+.month_visible_area {
+    height: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 50px;
+}
+
+.wbs_body {
+    position: absolute;
+    top: 56px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    overflow: hidden;
+}
+
+.bar_visible_area {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: -17px;
+    bottom: -17px;
+    overflow: scroll;
+    border-left: 1px solid rgb(193, 199, 208);
+}
+
+.bar_area {
+    position: relative;
+    min-height: 100%;
+}
+
+.user_Create_Form {
+    margin: 10px 50% 10px 20px;
+}
+
+.button {
+    margin-right: 10px;
+    padding: 10px;
+    font-size: 18px;
+    vertical-align: text-top;
+}
+
+.button.send {
+    background:#0099FF;
+}
+
+.button.file-upload {
+    background:#009900;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+textarea {
+    vertical-align: middle;
+}

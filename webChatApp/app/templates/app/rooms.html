@@ -1,0 +1,72 @@
+{% extends './base.html' %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                <h1 class="m-0 text-dark">CHAT ROOMS</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="{% url 'chat:top' %}">Home</a></li>
+                    <li class="breadcrumb-item active">CHAT ROOMS</li>
+                </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <span class="step size-64">
+                            <a id="modal-open">
+                                <i class="icon ion-android-add-circle"></i>
+                            </a>
+                        </span>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </div>
+    <section class="content">
+        {%if room_list%}
+            {%for room in room_list%}
+                <div class="col-lg-3 col-xs-6">
+                    <div class="small-box bg-green">
+                        <div class="inner">
+                            <h4>{{room.room_name}}</h4>
+                            <a href="{% url 'chat:delete_room' room.id %}" class="trash"> <i class="fas fa-trash-alt"></i> </a>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-chatboxes"></i>
+                        </div>
+                        <a href="{% url 'chat:room' room.room_name room.id %}" class="small-box-footer">{{room.room_name}}へ移動 <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            {%endfor%}
+        {%endif%}
+    </section>
+</div>
+
+<div id="modal-content">
+	作成する部屋名を入力してください。(名前には文字、数字、ハイフン、ピリオドのみ使用できます。)<br/>
+    <input id="room-name-input" type="text" size="45" style="width: 100%;"/>
+    <input id="room-name-submit" type="button" value="Create New Room"/>
+</div>
+
+    <script>
+        document.querySelector('#room-name-input').focus();
+        document.querySelector('#room-name-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#room-name-submit').click();
+            }
+        };
+ 
+        document.querySelector('#room-name-submit').onclick = function(e) {
+            var roomName = document.querySelector('#room-name-input').value;
+            window.location.pathname = '/chat/rooms/' + roomName + '/';
+        };
+
+    </script>
+{% endblock content %}

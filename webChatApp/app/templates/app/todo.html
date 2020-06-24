@@ -1,0 +1,74 @@
+{% extends './base.html' %}
+{% block content %}
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">TODO LIST</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{% url 'chat:top' %}">Home</a></li>
+              <li class="breadcrumb-item active">TODO</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+    <!-- Small boxes (Stat box) -->
+        <form class="todo_form" method="post" action="">
+            {% csrf_token %}
+            <p class="label_area">
+                {{ form.user_id.label }}：
+            </p>
+            {{ form.user_id }}
+            <hr>
+            <p class="label_area">
+                {{ form.todo_name.label }}：
+            </p>
+            {{ form.todo_name }}
+            <hr>
+            <p class="label_area">
+                {{ form.status.label }}：
+            </p>
+            {{ form.status }}
+            <hr>
+            <p class="label_area">
+                {{ form.scheduled_start_date.label }}：
+            </p>
+            {{ form.scheduled_start_date }}
+            <hr>
+            <p class="label_area">
+                {{ form.expected_end_date.label }}：
+            </p>
+            {{ form.expected_end_date }}
+            <hr>
+            <p class="label_area">
+                {{ form.start_date.label }}：
+            </p>
+            {{ form.start_date }}
+            <hr>
+            <p class="label_area">
+                {{ form.end_date.label }}：
+            </p>
+            {{ form.end_date }}
+            <hr>
+            <p class="label_area">
+                {{ form.remark.label }}：
+            </p>
+            {{ form.remark }}
+            <hr>
+            <p>{{ message }}</p>
+            <input class="send_button" type="submit" value="送信">
+        </form>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+{% endblock %}

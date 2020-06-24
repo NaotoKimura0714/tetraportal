@@ -1,0 +1,63 @@
+﻿ {% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>PORTAL</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="{% static 'AdminLTE-3.0.4/bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'AdminLTE-3.0.4/bower_components/font-awesome/css/font-awesome.min.css' %}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="{% static 'AdminLTE-3.0.4/bower_components/Ionicons/css/ionicons.min.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'AdminLTE-3.0.4/dist/css/AdminLTE.min.css' %}">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="{% static 'AdminLTE-3.0.4/plugins/iCheck/square/blue.css' %}">
+
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+<body class="hold-transition login-page">
+  <div class="login-box">
+    <div class="login-logo">
+      <b>ＰＯＲＴＡＬ</b>
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+      <p class="login-box-msg"><b>2段階認証画面</b></p>
+        <form action="/chat/2ashChack/" method="POST">
+            {% csrf_token %}
+            <div id="content-main">
+                <h1>ワンタイムパスワード</h1>
+                <p>以下のQRコードを読み込んで下さい。</p>
+                <p>(※有効期間は30秒です)</p>
+                <p><img src="data:image/png;base64,{{ request.session.img }}" alt="qrcode" width="200"/></p>
+                <input id="onetime-pass-input" type="text" size="20" name="onetime-pass-input"/><br/>
+                <input id="onetime-pass-submit" type="submit" value="Enter"/>
+            </div>
+        </form>
+    </div>
+    <!-- /.login-box-body -->
+  </div>
+  <!-- /.login-box -->
+
+  <!-- jQuery 3 -->
+  <script src="{% static 'AdminLTE-3.0.4/bower_components/jquery/dist/jquery.min.js' %}"></script>
+  <!-- Bootstrap 3.3.7 -->
+  <script src="{% static 'AdminLTE-3.0.4/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+  <!-- iCheck -->
+  <script src="{% static 'AdminLTE-3.0.4/plugins/iCheck/icheck.min.js' %}"></script>
+</body>
+</html>
+<script>
+        document.querySelector('#onetime-pass-input').focus();
+        document.querySelector('#onetime-pass-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#onetime-pass-submit').click();
+            }
+        };
+</script>

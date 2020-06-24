@@ -1,0 +1,4 @@
+{{ user.username }} 様,
+
+仮登録が完了しています。以下のURLにアクセスし、本登録を完了させ下さい。
+{{ protocol }}://{{ domain }}{% url 'accounts:user_create_complete' token %}

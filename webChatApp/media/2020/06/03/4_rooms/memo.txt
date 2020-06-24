@@ -1,0 +1,8 @@
+Django
+psycopg2
+python-decouple
+social-auth-app-django
+channels
+channels_redis
+
+requirements.txt

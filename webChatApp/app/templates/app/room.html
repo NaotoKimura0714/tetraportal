@@ -1,0 +1,199 @@
+{% extends './base.html' %}
+{% block content %}
+<div class="content-wrapper">
+    <section class="content">
+        <div id="chat-frame">
+            {% for message in message_log %}
+                {% if message.username == user.get_username %}
+                    <p class="chat-talk mytalk">
+                        <span class="chat_time_my">{{message.regist_time}}</span>
+                        {%if message.kbn == '1' %}
+                            <span class="talk-content"><a href="{{message.file_path}}" download="{{ message.message}}"><i class="fas fa-file"></i> {{ message.message | linebreaksbr }}</a></span>
+                        {% else %}
+                            <span class="talk-content">{{ message.message | linebreaksbr }}</span>
+                        {%endif%}
+                    </p>
+                {% else %}
+                    <div class="name">{{ message.username }}</div>
+                    <p class="chat-talk">
+                        {%if message.kbn == '1' %}
+                            <span class="talk-content"><a href="{{message.file_path}}" download="{{ message.message}}"><i class="fas fa-file"></i> {{ message.message | linebreaksbr }}</a></span>
+                        {% else %}
+                            <span class="talk-content">{{ message.message | linebreaksbr }}</span>
+                        {%endif%}
+                        <span class="chat_time">{{message.regist_time}}</span>
+                    </p>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div id="user_frame"><br/>
+        </div>
+        <div id="message-frame">
+            <textarea id="chat-message-input"></textarea>
+            <!--<input class="button" id="chat-message-submit" type="button" value="&#xf1d8"/>-->
+            <a class="button send" id="chat-message-submit">
+                <i class="fas fa-paper-plane fa-inverse"></i>
+            </a>
+            <a id="modal-open" class="button file-upload">
+                <i class="fas fa-file-upload fa-inverse"></i>
+            </a>
+        </div>
+    </section>
+</div>
+
+<form id="modal-content" name="fileUpload" method="POST" enctype="multipart/form-data" action="{% url 'chat:room' room_data.room_name room_data.id %}">
+	ファイル送信<br/>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <a id="file-submit">
+        <i class="fas fa-upload"></i>ファイルを送信
+    </a>
+</form>
+{% endblock content %}
+{% block scripts %}
+<script>
+
+    var roomName = {{ room_name_json }};
+    var roomId = {{ room_id_json }};
+    var myName = '{{ user.get_username }}';
+ 
+    var chatSocket = new WebSocket(
+        'ws://' + window.location.host +
+        '/ws/chat/rooms/' + roomName + '/' + roomId + '/' + '{{ user.get_username }}' + '/');
+ 
+    chatSocket.onmessage = function(e) {
+        var data = JSON.parse(e.data);
+        var time = data['time'];
+        var user_name = data['user_name'];
+        var message = data['message'];
+        var kbn = data['kbn'];
+        var file_path = data['file_path'];
+
+        var user_list = data['user_list'];
+        var userListElement = document.getElementById("user_frame");
+        var clone = userListElement.cloneNode( false );
+
+        userListElement.parentNode.replaceChild( clone , userListElement );
+        $.each(user_list,function(index, login_user){
+            var newUserElement = document.createElement("div");
+            newUserElement.className = 'list_user_name';
+            var UserName = document.createTextNode(login_user);
+            newUserElement.appendChild(UserName);
+            clone.appendChild(newUserElement);
+        });
+        var newElement = document.createElement("p");
+
+        var newMessageElement = document.createElement("span");
+        newMessageElement.className = 'talk-content';
+
+        var newTimeElement = document.createElement("span");
+        var newTime = document.createTextNode(time);
+        newTimeElement.appendChild(newTime);
+
+        var newNameElement = document.createElement("div");
+        newNameElement.className = 'name';
+
+        var UserName = document.createTextNode(user_name);
+        newNameElement.appendChild(UserName);
+
+        //var newContent = document.createTextNode(message);
+        //newMessageElement.appendChild(newContent);
+        var newLinkElement = document.createElement("a");
+
+        if(kbn == '1'){
+            newLinkElement.href = file_path;
+            newLinkElement.setAttribute("download",message);
+            newLinkElement.innerHTML = '<i class="fas fa-file"></i> ' + ht_str(message);
+            newMessageElement.appendChild(newLinkElement);
+        } else {
+            newMessageElement.innerHTML = ht_str(message);
+        }
+
+        var parentDiv = document.getElementById("chat-frame");
+
+        if(user_name == myName){
+            newElement.className = 'chat-talk mytalk';
+            newTimeElement.className = 'chat_time_my';
+            newElement.appendChild(newTimeElement);
+            newElement.appendChild(newMessageElement);
+        } else {
+            newElement.className = 'chat-talk';
+            newTimeElement.className = 'chat_time';
+            parentDiv.appendChild(newNameElement);
+            newElement.appendChild(newMessageElement);
+            newElement.appendChild(newTimeElement);
+        }
+        
+        parentDiv.appendChild(newElement);
+        parentDiv.scrollTop = parentDiv.scrollHeight;
+    };
+ 
+    chatSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+ 
+    document.querySelector('#chat-message-input').focus();
+    document.querySelector('#chat-message-input').onkeyup = function(e) {
+        if (event.altKey) {
+            if (e.keyCode === 13) {
+                var messageDom = document.querySelector('#chat-message-input');
+                messageDom.value += '\n';
+            }
+        } else {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#chat-message-submit').click();
+            }
+        }
+    };
+
+ 
+    document.querySelector('#chat-message-submit').onclick = function(e) {
+        var messageInputDom = document.querySelector('#chat-message-input');
+        var message = messageInputDom.value;
+        //message = message.replace('\n','\\n');
+        chatSocket.send(JSON.stringify({
+            'message': message
+        }));
+ 
+        messageInputDom.value = '';
+    };
+
+    function ht_str( str )
+    {
+        if( str == null ) return '';
+        str = str.toString();
+        str = str.replace( /&/g,'&amp;' );
+        str = str.replace( /</g,'&lt;' );
+        str = str.replace( />/g,'&gt;' );
+        str = str.replace( / /g,'&nbsp;' );
+        str = str.replace( /\t/g,'&nbsp;&nbsp;&nbsp;&nbsp;' ); // Tabをスペース4つに..
+        str = str.replace( /\r?\n/g, "<br />\n");
+        return str;
+    };
+
+    document.querySelector('#file-submit').onclick = function(e) {
+        e.preventDefault();
+        var form = $('#modal-content');
+        var formData = new FormData($('#modal-content').get(0));
+        $.ajax({
+            //url: "/chat/rooms/" + roomName + '/' + roomId + '/fileUpload/',
+            method: form.prop("method"),
+            data: formData,
+            timeout: 10000,
+            processData: false,
+            contentType: false,
+            //dataType: "text",
+            })
+        .done( function(data) {
+            alert(data);
+            $('#modal-content')[0].reset();
+        	$( "#modal-content,#modal-overlay" ).fadeOut( "slow" , function(){
+			    //[#modal-overlay]を削除する
+			    $('#modal-overlay').remove() ;
+		    } ) ;
+        })
+    };
+
+
+</script>
+{% endblock scripts %}
