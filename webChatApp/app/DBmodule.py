@@ -1,15 +1,15 @@
 # MySQLdb をインポート
-#import MySQLdb
-import pymysql.cursors
+import MySQLdb
+#import pymysql.cursors
 
 class DBmodule():
 
     # メッセージの保存
     def insertMessage(room_no, user_id, reg_date, reg_time, message, kbn, file_path):
         # データベース接続とカーソル生成
-#        connection = MySQLdb.connect(
-        connection = pymysql.connect(
-            host='localhost', user='chatUser', passwd='chatUser', db='chatdb', charset='utf8')
+        connection = MySQLdb.connect(
+#        connection = pymysql.connect(
+            host='localhost', user='chatuser', passwd='Ch@tUser0123', db='chatdb', charset='utf8')
         cursor = connection.cursor()
 
         try:
@@ -29,9 +29,9 @@ class DBmodule():
     def getMessage(room_no, now_date):
 
         # データベース接続とカーソル生成
-#        connection = MySQLdb.connect(
-        connection = pymysql.connect(
-            host='localhost', user='chatUser', passwd='chatUser', db='chatdb', charset='utf8')
+        connection = MySQLdb.connect(
+#        connection = pymysql.connect(
+            host='localhost', user='chatuser', passwd='Ch@tUser0123', db='chatdb', charset='utf8')
         cursor = connection.cursor()
 
         # SQLの発行
@@ -67,9 +67,9 @@ class DBmodule():
     def make_chat_room(room_name):
 
         # データベース接続とカーソル生成
-#        connection = MySQLdb.connect(
-        connection = pymysql.connect(
-            host='localhost', user='chatUser', passwd='chatUser', db='chatdb', charset='utf8')
+        connection = MySQLdb.connect(
+#        connection = pymysql.connect(
+            host='localhost', user='chatuser', passwd='Ch@tUser0123', db='chatdb', charset='utf8')
         cursor = connection.cursor()
 
         # チャットルームの件数取得
@@ -105,9 +105,9 @@ class DBmodule():
     def get_chat_room():
 
         # データベース接続とカーソル生成
-#        connection = MySQLdb.connect(
-        connection = pymysql.connect(
-            host='localhost', user='chatUser', passwd='chatUser', db='chatdb', charset='utf8')
+        connection = MySQLdb.connect(
+#        connection = pymysql.connect(
+            host='localhost', user='chatuser', passwd='Ch@tUser0123', db='chatdb', charset='utf8')
         cursor = connection.cursor()
 
         # SQLの発行
@@ -122,9 +122,9 @@ class DBmodule():
     def get_user(user_name):
 
         # データベース接続とカーソル生成
-#        connection = MySQLdb.connect(
-        connection = pymysql.connect(
-            host='localhost', user='chatUser', passwd='chatUser', db='chatdb', charset='utf8')
+        connection = MySQLdb.connect(
+#        connection = pymysql.connect(
+            host='localhost', user='chatuser', passwd='Ch@tUser0123', db='chatdb', charset='utf8')
         cursor = connection.cursor()
 
         # SQLの発行
@@ -139,9 +139,9 @@ class DBmodule():
     def get_todo_list(user_id):
 
         # データベース接続とカーソル生成
-#        connection = MySQLdb.connect(
-        connection = pymysql.connect(
-            host='localhost', user='chatUser', passwd='chatUser', db='chatdb', charset='utf8')
+        connection = MySQLdb.connect(
+#        connection = pymysql.connect(
+            host='localhost', user='chatuser', passwd='Ch@tUser0123', db='chatdb', charset='utf8')
         cursor = connection.cursor()
 
         # SQLの発行

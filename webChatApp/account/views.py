@@ -46,7 +46,8 @@ class Login(LoginView):
         captcha = self.request.POST.get("g-recaptcha-response")
         if captcha:
             auth_url = 'https://www.google.com/recaptcha/api/siteverify?secret={}&response={}'
-            auth_url = auth_url.format('6Ld2MfQUAAAAAGtGe4zI_r-xaOLpuEkD4vTyt7vq', captcha)
+#            auth_url = auth_url.format('6Ld2MfQUAAAAAGtGe4zI_r-xaOLpuEkD4vTyt7vq', captcha)
+            auth_url = auth_url.format('6LeK16cZAAAAAIIGHnrmti7awZ81dYkAmhUo32hA', captcha)
             response = requests.get(auth_url)
             if response.json().get('success'):
                 return super().form_valid(form)
