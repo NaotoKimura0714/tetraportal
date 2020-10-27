@@ -10,7 +10,7 @@ channels==2.1.2
 channels-redis==2.2.1
 chardet==3.0.4
 constantly==15.1.0
-cryptography==2.9.2
+cryptography==3.2
 daphne==2.5.0
 dataclasses==0.7
 Django==2.2
